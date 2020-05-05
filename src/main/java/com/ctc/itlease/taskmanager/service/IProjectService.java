@@ -6,7 +6,13 @@ import com.ctc.itlease.taskmanager.payload.ProjectRequest;
 import com.ctc.itlease.taskmanager.payload.ProjectResponse;
 
 public interface IProjectService {
+    Project create(ProjectRequest projectRequest);
+
+    ProjectResponse findById(long projectId);
+
     PagedResponse<ProjectResponse> listProjects(int page, int size);
 
-    Project create(ProjectRequest projectRequest);
+    Project update(ProjectRequest projectRequest);
+
+    void deleteById(long projectId);
 }

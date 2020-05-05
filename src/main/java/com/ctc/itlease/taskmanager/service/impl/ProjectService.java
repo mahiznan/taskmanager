@@ -1,5 +1,6 @@
 package com.ctc.itlease.taskmanager.service.impl;
 
+import com.ctc.itlease.taskmanager.exception.ResourceNotFoundException;
 import com.ctc.itlease.taskmanager.model.Project;
 import com.ctc.itlease.taskmanager.payload.PagedResponse;
 import com.ctc.itlease.taskmanager.payload.ProjectRequest;
@@ -13,10 +14,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.Collections;
 import java.util.List;
 
 @Service
+@Transactional
 public class ProjectService implements IProjectService {
     private final ProjectRepository projectRepository;
 
@@ -43,9 +46,28 @@ public class ProjectService implements IProjectService {
         return projectRepository.save(project);
     }
 
+    @Override
+    public ProjectResponse findById(long projectId) {
+        Project project = projectRepository.findById(projectId)
+                .orElseThrow(() -> new ResourceNotFoundException("Project", "id", projectId));
+        return ModelMapper.mapProjectToProjectResponse(project);
+    }
+
+    @Override
+    public Project update(ProjectRequest projectRequest) {
+        Project project = projectRepository.findById(projectRequest.getId())
+                .orElseThrow(() -> new ResourceNotFoundException("Project", "id", projectRequest.getId()));
+        updateProject(project, projectRequest);
+        return project;
+    }
+
+    @Override
+    public void deleteById(long projectId) {
+        projectRepository.deleteById(projectId);
+    }
+
     private void updateProject(Project project, ProjectRequest projectRequest) {
         project.setName(projectRequest.getName());
         project.setDescription(projectRequest.getDescription());
     }
-
 }
