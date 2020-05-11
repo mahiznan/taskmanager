@@ -1,8 +1,14 @@
 package com.ctc.itlease.taskmanager.payload;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
 public class ProjectRequest {
     private Long id;
+    @NotBlank
     private String name;
+    @NotBlank
+    @Size(min = 10, max = 255)
     private String description;
 
     public Long getId() {

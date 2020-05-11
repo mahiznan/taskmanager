@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 
 @RestController
@@ -47,7 +48,7 @@ public class ProjectController {
     }
 
     @PostMapping("update/{projectId}")
-    public ResponseEntity<?> updateProject(@RequestBody ProjectRequest projectRequest) {
+    public ResponseEntity<?> updateProject(@Valid @RequestBody ProjectRequest projectRequest) {
         Project project = projectService.update(projectRequest);
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
