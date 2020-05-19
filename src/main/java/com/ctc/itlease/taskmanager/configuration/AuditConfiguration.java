@@ -1,8 +1,7 @@
 package com.ctc.itlease.taskmanager.configuration;
 
-import com.ctc.itlease.taskmanager.model.User;
-import com.ctc.itlease.taskmanager.repository.UserRepository;
-import com.ctc.itlease.taskmanager.security.UserPrincipal;
+import com.ctc.itlease.taskmanager.auth.User;
+import com.ctc.itlease.taskmanager.auth.UserRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.AuditorAware;

@@ -1,8 +1,5 @@
 package com.ctc.itlease.taskmanager.configuration;
 
-import com.ctc.itlease.taskmanager.security.CustomUserDetailService;
-import com.ctc.itlease.taskmanager.security.JWTAuthenticationEntryPoint;
-import com.ctc.itlease.taskmanager.security.JWTAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -70,8 +67,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 "/**/*.svg",
                 "/**/*.jpg"
         ).permitAll()
-                .antMatchers("/api/auth/**").permitAll()
-                .antMatchers("/api/welcome", "/api/user/checkUsernameAvailability", "/api/user/checkEmailAvailability").permitAll()
+                .antMatchers("/api/auth/signin").permitAll()
+                .antMatchers("/api/user/checkUsernameAvailability", "/api/user/checkEmailAvailability").permitAll()
                 .anyRequest().authenticated();
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
     }
